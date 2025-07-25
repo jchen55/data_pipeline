@@ -6,16 +6,14 @@ sources:
     tables:
       - name: orders
         columns:
-          name: o_orderkey
-          description: "Unique identifier for each order"
-          tests:
-            - not_null
-            - unique
+          - name: o_orderkey
+            tests:
+              - unique
+              - not_null
       - name: lineitem
         columns: 
-          name: l_orderkey
-          description: "Foreign key to orders table"
-          tests:
-            - relationship:
-                to: source.tpch.orders
-                field: o_orderkey
+          - name: l_orderkey
+            tests:
+              - relationships:
+                  to: source('tpch', 'orders')
+                  field: o_orderkey
