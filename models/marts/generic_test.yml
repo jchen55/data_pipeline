@@ -1,0 +1,18 @@
+models:
+  - name: fact_orders
+    columns:
+      - name: order_key
+        description: Unique identifier for each order
+        tests: 
+          - unique
+          - not_null
+          - relationships:
+              to: source('tpch', 'orders')
+              field: o_orderkey
+              severity: warn
+      - name: order_status
+        description: Status of the order (e.g., 'O', 'F', 'P')
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['O', 'F', 'P']
